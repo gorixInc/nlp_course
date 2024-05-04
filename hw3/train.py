@@ -1,7 +1,5 @@
 import argparse
 from functools import partial
-from torchtext.vocab import vocab
-from collections import Counter
 from datasets import load_dataset
 import evaluate
 from transformers import (
@@ -173,6 +171,7 @@ def main():
         load_best_model_at_end=True,
         metric_for_best_model="overall_f1" if args.return_entity_level_metrics else "f1",
         greater_is_better=True,
+        disable_tqdm=True,
     )
 
     trainer = Trainer(

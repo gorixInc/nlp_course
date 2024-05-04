@@ -43,7 +43,7 @@ if __name__ == "__main__":
     #       parts of a bigger word can be identified by `##` in front of the token
     #       the first part of a word consisting of subword units doesn't have `##` in front of it
     combined_rev = combined[::-1]
-    
+
     for i in range(len(combined_rev) - 1):
         token = combined_rev[i][0]
         if token.startswith('##') and not i == 0:
@@ -70,6 +70,6 @@ if __name__ == "__main__":
 
     combined = combined_rev[::-1]
     #    Example: [("Some", "B-ORG"), ("Company", "I-ORG")] -> s[("Some Company", "ORG")]
-    combined = [tuple(el) for el in combined if not el[0] in ['[CLS]', '[SEP]']]
+    combined = [tuple(el) for el in combined]
     # 9. print out the input and the tagged output
     print(combined)
