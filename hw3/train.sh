@@ -12,7 +12,7 @@
 
 source activate nlp_course
 
-cd ~/nlp/hw3
+cd ~/nlp_course/hw3
 
 python test.py --dataset_name conll2003 --label_column_name tags --output_dir ./output --model_name_or_path distilbert-base-uncased
 
