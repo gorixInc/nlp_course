@@ -10,6 +10,7 @@ from transformers import (
     DataCollatorForTokenClassification,
     Trainer,
     TrainingArguments,
+    EarlyStoppingCallback
 )
 import numpy as np
 
@@ -182,6 +183,7 @@ def main():
         tokenizer=tokenizer,
         data_collator=data_collator,
         compute_metrics=eval_fn,
+        callbacks=[EarlyStoppingCallback(early_stopping_patience=3)]  # Early stopping callback implementation
     )
 
     trainer.train()

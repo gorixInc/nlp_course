@@ -36,10 +36,14 @@ if __name__ == "__main__":
     combined = []
     for i in range(len(tokens)):
         combined.append([tokens[i], labels[i]])
+    # 8. filter out "[CLS]" and "[SEP]" tokens from the output
+    combined = [el for el in combined if not el[0] in ['[CLS]', '[SEP]']]
+    
     #   6.2 the tokenizer splits the input text into subword units, so you should merge them back into words
     #       parts of a bigger word can be identified by `##` in front of the token
     #       the first part of a word consisting of subword units doesn't have `##` in front of it
     combined_rev = combined[::-1]
+    
     for i in range(len(combined_rev) - 1):
         token = combined_rev[i][0]
         if token.startswith('##') and not i == 0:
@@ -51,19 +55,21 @@ if __name__ == "__main__":
     # 7. some named entities consist of several words: the beginning is indicated by "B-" in the name of the tag,
     #    while "I-" means the continuation of the previous entity
     #    combine such sequences into a single tuple (words, tag)
-    for i in range(len(combined_rev) - 1): 
+
+    for i in range(len(combined_rev)): 
         tag = combined_rev[i][1]
         token = combined_rev[i][0]
-        if tag.startswith('I-'):
-            combined_rev[i+1][0] += ' ' + token
-            combined_rev[i] = None
         if tag.startswith('B-'):
             combined_rev[i][1] = tag.replace('B-', '')
+            continue
+        if tag.startswith('I-') and i < len(combined_rev) - 1:
+            combined_rev[i+1][0] += ' ' + token
+            combined_rev[i] = None
+
     combined_rev = [el for el in combined_rev if el is not None] 
 
     combined = combined_rev[::-1]
     #    Example: [("Some", "B-ORG"), ("Company", "I-ORG")] -> s[("Some Company", "ORG")]
-    # 8. filter out "[CLS]" and "[SEP]" tokens from the output
     combined = [tuple(el) for el in combined if not el[0] in ['[CLS]', '[SEP]']]
     # 9. print out the input and the tagged output
     print(combined)

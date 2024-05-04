@@ -14,6 +14,6 @@ source activate nlp_course
 
 cd ~/nlp_course/hw3
 
-python train.py --num_train_epochs 6 --dataset_name conll2003 --label_column_name ner_tags --output_dir ./output --model_name_or_path distilbert-base-uncased
+python train.py --num_train_epochs 100 --dataset_name conll2003 --label_column_name ner_tags --output_dir ./output --model_name_or_path distilbert-base-uncased
 
 conda deactivate
