@@ -1,7 +1,7 @@
 import torch
 device = None
 try:
-    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    device = 'cuda' if torch.cuda.is_available() else 'cpu'
     print('Using device:', device)
 except Exception as e:
     device = e
