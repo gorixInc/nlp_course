@@ -3,3 +3,8 @@
 *.md 
 *.zip
 proj
+*.json
+*.pt
+*.txt
+markdown_crawler
+*.safetensors
